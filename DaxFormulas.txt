@@ -1,0 +1,130 @@
+count_town_names = COUNT(location[town_name])
+
+
+Aggregated_improvements = 
+IF(
+CONTAINSSTRING(
+'project_progress'[improvement], "taps nearby"
+),
+"Install public tap(s)*",
+IF(
+'project_progress'[improvement] == "Diagnose local infrastructure",
+"Repair infrastructure",
+'project_progress'[improvement]
+)
+)
+
+
+avg_budget_of_an_improvement = DIVIDE('project_progress'[cum_budget],'project_progress'[count_completed_project]) 
+
+
+avg_cost_of_an_improvement = DIVIDE('project_progress'[cum_cost],'project_progress'[count_completed_project]) 
+
+
+Budgeted_improvement_cost = 
+IF(
+CONTAINSSTRING(
+'project_progress'[town],
+"Rural*"),
+RELATED('infrastructure_cost'[Rural_adjusted cost]), RELATED('infrastructure_cost'[unit_cost_USD])
+)
+
+
+Cost/Citizen = [total_budget_cost]/[Total_Pop]
+
+
+count_completed_project = CALCULATE(
+    COUNTROWS(project_progress),
+    FILTER(project_progress, project_progress[source_status] = "Complete")
+)
+
+
+count_sources_to_go = CALCULATE(
+   COUNTROWS(project_progress),
+   FILTER(project_progress, project_progress[source_status] = "Backlog")
+)
+
+
+cum_budget = 
+CALCULATE(
+SUM('project_progress'[Budgeted_improvement_cost]),
+FILTER(
+ALL('project_progress'[date_of_completion]),
+'project_progress'[date_of_completion] <= MAX('project_progress'[date_of_completion]) &&
+NOT(ISBLANK('project_progress'[date_of_completion]))
+)
+)
+
+
+cum_cost = 
+CALCULATE(
+SUM('project_progress'[cost]),
+FILTER(
+ALL('project_progress'[date_of_completion]),
+'project_progress'[date_of_completion] <= MAX('project_progress'[date_of_completion]) &&
+NOT(ISBLANK('project_progress'[date_of_completion]))
+)
+)
+
+
+Average_queue_time = 
+CALCULATE(
+AVERAGE('visits'[time_in_queue]),
+FILTER(
+'visits',
+'visits'[source_id] = 'water_source'[source_id]
+)
+)
+
+
+Basic_Access = 
+IF(AND('water_source'[type_of_water_source]="well",RELATED('well_pollution'[results])="clean"),"Basic Access",
+IF('water_source'[type_of_water_source]="tap_in_home","Basic Access",
+IF(AND('water_source'[type_of_water_source]="shared_tap",'water_source'[Average_queue_time] < 30),"Basic Access",
+"Below Basic Access")))
+
+
+Basic_access_to_water = ([total_pop_basic] +
+[pop_now_basic_access])/[Total_Pop]
+
+
+Pct_of_basic_access = [total_pop_basic]/[Total_Pop]
+
+
+pct_of_below_basic_access = [total_pop_below_basic_access]/[Total_Pop]
+
+
+pct_pop_now_basic_access = ([pop_access_basic_once_all_improvements_complete])/[Total_Pop]
+
+
+pop_access_basic_once_all_improvements_complete = 
+CALCULATE(  
+    SUM('water_source'[number_of_people_served]),
+    'water_source'[Basic_Access] = "Below Basic Access",
+    'project_progress'[source_status] IN {"Backlog", "Complete"})
+
+
+pop_now_basic_access = 
+CALCULATE(  
+    SUM('water_source'[number_of_people_served]),
+    'project_progress'[source_status] = "Complete",
+    'water_source'[Basic_Access] <> "Basic access"
+)
+
+
+Total_Pop = 
+CALCULATE(
+SUM('water_source'[number_of_people_served]),
+ALLEXCEPT(
+'project_progress',
+'project_progress'[town]
+))
+
+
+total_pop_basic = CALCULATE(SUM('water_source'[number_of_people_served]), FILTER(ALL(water_source),
+OR(OR(AND('water_source'[type_of_water_source] = "well",RELATED(well_pollution[results]) = "Clean"),'water_source'[type_of_water_source] = "tap_in_home"),AND('water_source'[type_of_water_source] = "shared_tap",'water_source'[Average_queue_time] < 30))))
+
+
+total_pop_below_basic_access = CALCULATE([Total_Pop],'water_source'[Basic_Access]="Below Basic Access")
+
+

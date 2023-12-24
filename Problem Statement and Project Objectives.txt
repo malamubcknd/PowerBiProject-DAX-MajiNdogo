@@ -1,0 +1,41 @@
+Problem Statement
+At the heart of this project is the water crisis faced by a fictitious country called Maji Ndogo due to insufficient water sources and badly maintained water sources. Our mission is to help rejuvenate the drying rivers, improve and also add more water sources to each town in the rural and urban areas of Maji Ndogo.
+
+Project Objectives
+1.	Understand this data on a national level and a provincial level
+2.	Know how many people are affected by water access challenges in Maji Ndogo and what those challenges are. 
+3.	Know how much money we will need to complete the upgrades, and where that money needs to be spent. 
+4.	We should summarise population-related access to water on a national and provincial level. 
+5.	A lot of people in Maji Ndogo live in rural and urban areas, so we should summarise their results and the challenges they face separately. 
+6.	We need to communicate the number of sources, and also the amount of people affected by these sources. 
+7.	Perhaps we should also consider making the less important sources like tap_in_homes less visible since we're not upgrading those. 
+8.	I want to see the key points of the survey results so I understand the overall status of water access in Maji Ndogo.
+9.	I want to know how many people are affected by water access challenges in Maji Ndogo and what those challenges are. 
+10.	Here we show the distribution of source types in rural vs. urban populations 
+11.	A sorted visual of the number of source types. 
+12.	I want to know how much money we will need to complete the upgrades, and where that money needs to be spent. 
+13.	We need to show a single number representing the data nationally, and per province.
+14.	We should also break down costs in various ways: – per province – rural/urban – source type 
+15.	I want to understand this data on a national level and a provincial level. 
+16.	If we build the report well, we can drill down into different categories.
+17.	Total people served for each water source type in a province. 
+18.	Number of water sources, their type, and whether it is rural or urban. 
+19.	Show the relevant stats for towns in that province. 
+20.	Add relevant provincial data. Queues, gender compositions and crime, broken taps by town, etc., in provinces where it is relevant. 
+21.	Summary of improvements and costs.
+22.	The dashboard should provide clear insights into several key aspects of the project: 
+23.	Current progress status of the project.
+24.	Total expenditure to date. 
+25.	Breakdown of spending by location. 
+26.	Specifics on what the funds have been used for. 
+27.	Forecasting whether the allocated budget will suffice for project completion. 
+28.	Potential areas for cost reduction. 
+29.	Comprehensive data representation at national, provincial, and town levels. 
+30.	Provide some insight into what the teams are doing on the ground.
+31.	As a citizen of Maji Ndogo I want to see 1. How the project is going. Very simply: Which sources have been completed? 2. How much money has been spent so far? 3. Where was the money spent? 4. What the money was spent on? 5. Details about everything in my town. 
+32.	As a decision-maker, I want to see: 1. How far is the project? 2. How much money has been spent so far? 3. Where was the money spent? 4. What the money was spent on? 5. Will we have enough money to complete the project? 6. Where can we cut costs? 7. I want to see data at the national, provincial and town level.
+33.	A map that will show us how far along the project is. Users should be able to see visually how far the project is. 
+34.	Users should also be able to select any town, or rural area, and know immediately how the project is doing. 
+35.	A cost tracking visual. A KPI plot is a nice option that will show us how much we thought it would cost, vs. how much it is really costing us. 
+36.	Break down the cost of the project so people can see where the money was spent. 
+37.	Summaries of key metrics: – Project progress (%) – Basic access to water (%), updated now that the new water sources are installed. – How many people are affected by the changes.? 
